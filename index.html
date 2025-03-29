@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #ff4d4d;
+        }
+
+        #surpriseButton {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #surpriseButton:hover {
+            background-color: #e60000;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Valentine's Day!</h1>
+        <p>Welcome to our special Valentine's Day page.</p>
+        <button id="surpriseButton">Click for a Surprise</button>
+        <div id="surpriseMessage" class="hidden">
+            <p>You are loved!</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('surpriseButton').addEventListener('click', function() {
+            document.getElementById('surpriseMessage').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
