@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffe6e6;
+            background-color: #FFBDCB;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -32,7 +32,7 @@
             height: 50px;
             background: #444;
             border-radius: 10px;
-            transition: left 2s ease-in-out;
+            transition: left 2s ease-in-out, opacity 1s ease-in-out;
         }
 
         .truck::before {
@@ -40,7 +40,7 @@
             position: absolute;
             width: 60px;
             height: 40px;
-            background: #ffcc00;
+            background:rgb(255, 247, 216);
             top: -30px;
             left: 20px;
             border-radius: 5px;
@@ -63,10 +63,14 @@
             right: 10px;
         }
 
+        .truck.hidden {
+            opacity: 0;
+        }
+
         .package {
             width: 80px;
             height: 50px;
-            background: #c19a6b;
+            background: rgb(255, 0, 0);
             position: absolute;
             bottom: 0;
             left: 110px;
@@ -74,7 +78,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transform: scale(0);
+            transform: scale(0) translateY(0);
             transition: transform 0.5s ease-in-out;
         }
 
@@ -83,7 +87,47 @@
         }
 
         .open .package {
-            transform: scale(1);
+            transform: scale(1) translateY(-50px);
+        }
+
+        .finished .truck {
+            left: 400px;
+        }
+
+        .finished .truck.hidden {
+            opacity: 0;
+        }
+
+        .note {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            /* เริ่มต้นด้วยขนาด 0 */
+            width: 200px;
+            height: 150px;
+            background: #fffacd;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 16px;
+            padding: 10px;
+            z-index: 1000;
+            opacity: 0;
+            /* เริ่มต้นด้วยความโปร่งใส */
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            /* เพิ่มการเปลี่ยนแปลง */
+        }
+
+        .note.visible {
+            transform: translate(-50%, -50%) scale(1);
+            /* ขยายขนาดเป็นปกติ */
+            opacity: 1;
+            /* ทำให้มองเห็นได้ */
         }
     </style>
 </head>
@@ -95,13 +139,28 @@
             <div class="wheel right"></div>
         </div>
         <div class="package" id="package">
-            <p>Special Delivery!</p>
+            <div class="note" id="note">นี่คือข้อความในโน้ต!</div>
         </div>
     </div>
 
     <script>
-        document.getElementById('scene').addEventListener('click', function() {
-            this.classList.toggle('open');
+        const scene = document.getElementById('scene');
+        const truck = document.getElementById('truck');
+        const packageElement = document.getElementById('package');
+        const note = document.getElementById('note');
+
+        scene.addEventListener('click', function() {
+            this.classList.add('open');
+
+            // Wait for the truck to stop and drop the package
+            setTimeout(() => {
+                this.classList.add('finished');
+            }, 2500); // Adjust timing to match the truck's animation
+        });
+
+        // Show the note with a smooth effect when the package is clicked
+        packageElement.addEventListener('click', function() {
+            note.classList.toggle('visible');
         });
     </script>
 </body>
